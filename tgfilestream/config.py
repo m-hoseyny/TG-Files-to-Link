@@ -17,6 +17,11 @@ import sys
 import os
 
 from yarl import URL
+import environ
+
+
+env = environ.Env()
+environ.Env.read_env('.env')
 
 try:
     port = int(os.environ.get("PORT", "8080"))
@@ -27,8 +32,9 @@ if not 1 <= port <= 65535:
     sys.exit(1)
 
 try:
-    api_id = int(os.environ["TG_API_ID"])
+    api_id = (os.environ["TG_API_ID"])
     api_hash = os.environ["TG_API_HASH"]
+    print('{} {}'.format( api_id, api_hash ))
 except (KeyError, ValueError):
     print("Please set the TG_API_ID and TG_API_HASH environment variables correctly")
     print("You can get your own API keys at https://my.telegram.org/apps")
